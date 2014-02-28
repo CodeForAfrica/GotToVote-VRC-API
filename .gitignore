@@ -9,3 +9,5 @@ Thumbs.db
 
 # Environment specific
 /app/config/local
+/app/config/staging
+/app/config/production
