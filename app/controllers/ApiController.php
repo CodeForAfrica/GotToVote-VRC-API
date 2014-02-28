@@ -68,7 +68,10 @@ class ApiController extends BaseController {
 		$user['constituency'] = $response[4]['v'];
 		$user['ward'] = $response[5]['v'];
 		$user['regcenter'] = $response[6]['v'];
-		return $user;
+		$message = array();
+		$message['session_id'] = '123afda123e';
+		$message['message'] = 'Confirmed. You are registered.';
+		return $message;
 	}
 
 }
