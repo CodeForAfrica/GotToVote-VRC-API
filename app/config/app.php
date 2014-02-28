@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'Africa/Nairobi',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -173,6 +173,20 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 
+	),
+	
+	
+	/*
+	|--------------------------------------------------------------------------
+	|Google Client API
+	|--------------------------------------------------------------------------
+	|
+	*/
+	
+	'google-client-api' => array(
+		'client_id' => '',
+		'service_account_name' => '',
+		'project_id' => '',
 	),
 
 );
