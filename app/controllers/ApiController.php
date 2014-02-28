@@ -25,7 +25,8 @@ class ApiController extends BaseController {
 		return $this->fetchBigQuery($reg_num);
 	}
 	
-	public function fetchBigQuery($reg_num) {
+	public function fetchBigQuery($reg_num)
+	{	
 		require_once 'Google/Client.php';
 		require_once 'Google/Service/Bigquery.php';
 		
@@ -59,7 +60,8 @@ class ApiController extends BaseController {
 		return $response;
 	}
 	
-	public function fetchBigQuery_formatResponse($response){
+	public function fetchBigQuery_formatResponse($response)
+	{
 		$user = array();
 		$user['voterid'] = $response[0]['v'];
 		$user['firstname'] = $response[1]['v'];
