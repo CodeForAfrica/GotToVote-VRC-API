@@ -183,10 +183,15 @@ return array(
 	|
 	*/
 	
-	'google-client-api' => array(
-		'client_id' => '',
-		'service_account_name' => '',
+	'google_client_api' => array(
+		'app_name' => 'Example_App_Name',
+		'service_account_email' => '',
 		'project_id' => '',
+		'key_location' => '../secrets/KEY_NAME',
+		'bigquery' => array(
+			'dataset' => '',
+			'voter_table' => '',
+		),
 	),
 
 );
