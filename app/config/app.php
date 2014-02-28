@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'Africa/Nairobi',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -173,6 +173,25 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 
+	),
+	
+	
+	/*
+	|--------------------------------------------------------------------------
+	|Google Client API
+	|--------------------------------------------------------------------------
+	|
+	*/
+	
+	'google_client_api' => array(
+		'app_name' => 'Example_App_Name',
+		'service_account_email' => '',
+		'project_id' => '',
+		'key_location' => '../secrets/KEY_NAME',
+		'bigquery' => array(
+			'dataset' => '',
+			'voter_table' => '',
+		),
 	),
 
 );
