@@ -1,4 +1,5 @@
-## GotToVote Voter Registration Confirmation (VRC) API
+## GotToVote VRC API
+### Voter Registration Confirmation (VRC) API
 
 [![Build Status](https://travis-ci.org/CodeForAfrica/GotToVote-VRC-API.png)](https://travis-ci.org/CodeForAfrica/GotToVote-VRC-API)
 
