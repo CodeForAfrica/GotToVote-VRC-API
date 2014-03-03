@@ -64,6 +64,11 @@ class ApiController extends BaseController {
 			$response = null;
 		}else{
 			$response = $this->fetchBigQuery_formatResponse($response['rows']['0']['f']);
+			
+			// Save user accessed
+			$user = User::firstOrNew(array('voter_id' => $reg_num));
+			$user->access_count = $user->access_count + 1;
+			$user->save();
 		}
 
 		return $response;
