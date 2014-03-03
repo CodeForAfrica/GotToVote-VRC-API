@@ -82,6 +82,14 @@ return array(
 			'password' => '',
 			'prefix'   => '',
 		),
+		
+		'google-bigquery' => array(
+			'driver'   => 'mysql',
+			'dataset'     => '',
+			'service_account_email' => '',
+			'project_id' => '',
+			'key_location' => '../secrets/KEY_NAME',
+		),
 
 	),
 

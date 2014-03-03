@@ -10,14 +10,7 @@ class Voter extends Eloquent implements UserInterface, RemindableInterface {
 	 *
 	 * @var string
 	 */
-	protected $table = 'users';
-
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = array('password');
+	protected $table = 'VOTER_TABLE';
 
 	/**
 	 * Get the unique identifier for the user.
