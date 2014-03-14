@@ -11,5 +11,5 @@
 |
 */
 
-Route::get('/', 'ApiController@confirmRegistration');
+Route::get('/', 'SmsController@receiveSMS');
 Route::get('/sms', 'SmsController@receiveSMS');
