@@ -11,3 +11,7 @@ Thumbs.db
 /app/config/local
 /app/config/staging
 /app/config/production
+
+# Supervisor
+supervisord.log
+supervisord.pid
