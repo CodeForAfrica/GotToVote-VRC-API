@@ -1,0 +1,44 @@
+2014-03-14 18:17:11,469 INFO Increased RLIMIT_NOFILE limit to 1024
+2014-03-14 18:17:11,478 INFO daemonizing the supervisord process
+2014-03-14 18:17:11,480 INFO supervisord started with pid 83568
+2014-03-14 18:17:12,486 INFO spawned: 'gtvvrcapiqueue' with pid 83572
+2014-03-14 18:17:13,488 INFO success: gtvvrcapiqueue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2014-03-14 18:19:32,400 INFO Increased RLIMIT_NOFILE limit to 1024
+2014-03-14 18:19:32,408 INFO daemonizing the supervisord process
+2014-03-14 18:19:32,409 INFO supervisord started with pid 86424
+2014-03-14 18:19:33,412 INFO spawned: 'gtvvrcapiqueue' with pid 86445
+2014-03-14 18:19:34,414 INFO success: gtvvrcapiqueue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2014-03-14 18:25:36,734 CRIT Supervisor running as root (no user in config file)
+2014-03-14 18:25:36,734 INFO Increased RLIMIT_NOFILE limit to 1024
+2014-03-14 18:25:36,740 INFO daemonizing the supervisord process
+2014-03-14 18:25:36,742 INFO supervisord started with pid 320
+2014-03-14 18:25:37,745 INFO spawned: 'gtvvrcapiqueue' with pid 357
+2014-03-14 18:25:38,746 INFO success: gtvvrcapiqueue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2014-03-14 18:30:00,052 INFO Increased RLIMIT_NOFILE limit to 1024
+2014-03-14 18:30:00,061 INFO daemonizing the supervisord process
+2014-03-14 18:30:00,063 INFO supervisord started with pid 12019
+2014-03-14 18:30:01,069 INFO spawned: 'gtvvrcapiqueue' with pid 12061
+2014-03-14 18:30:02,071 INFO success: gtvvrcapiqueue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2014-03-14 18:48:18,838 INFO Increased RLIMIT_NOFILE limit to 1024
+2014-03-14 18:48:18,846 INFO daemonizing the supervisord process
+2014-03-14 18:48:18,847 INFO supervisord started with pid 59092
+2014-03-14 18:48:33,911 CRIT Supervisor running as root (no user in config file)
+2014-03-14 18:48:33,911 INFO Increased RLIMIT_NOFILE limit to 1024
+2014-03-14 18:48:33,914 INFO daemonizing the supervisord process
+2014-03-14 18:48:33,916 INFO supervisord started with pid 59706
+2014-03-14 18:57:35,277 WARN received SIGTERM indicating exit request
+2014-03-14 18:57:35,278 WARN received SIGTERM indicating exit request
+2014-03-14 18:57:35,280 WARN received SIGTERM indicating exit request
+2014-03-14 18:57:35,281 WARN received SIGTERM indicating exit request
+2014-03-14 18:57:35,281 INFO waiting for gtvvrcapiqueue to die
+2014-03-14 18:57:35,282 INFO waiting for gtvvrcapiqueue to die
+2014-03-14 18:57:35,290 WARN received SIGTERM indicating exit request
+2014-03-14 18:57:35,291 INFO waiting for gtvvrcapiqueue to die
+2014-03-14 18:57:35,291 INFO stopped: gtvvrcapiqueue (terminated by SIGTERM)
+2014-03-14 18:57:35,293 INFO stopped: gtvvrcapiqueue (terminated by SIGTERM)
+2014-03-14 18:57:35,294 INFO stopped: gtvvrcapiqueue (terminated by SIGTERM)
+2014-03-14 19:52:30,839 INFO Increased RLIMIT_NOFILE limit to 1024
+2014-03-14 19:52:30,847 INFO daemonizing the supervisord process
+2014-03-14 19:52:30,848 INFO supervisord started with pid 1690
+2014-03-14 19:52:31,852 INFO spawned: 'gtvvrcapiqueue' with pid 1693
+2014-03-14 19:52:32,854 INFO success: gtvvrcapiqueue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
