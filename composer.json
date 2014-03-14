@@ -1,11 +1,12 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
-	"keywords": ["framework", "laravel"],
+	"name": "gottovote/vrc-api",
+	"description": "The GotToVote Voter Registration Confirmation (VRC) API.",
+	"keywords": ["gottovote", "elections", "framework", "laravel"],
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-		"google/apiclient": "dev-master"
+		"google/apiclient": "dev-master",
+		"pda/pheanstalk": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
