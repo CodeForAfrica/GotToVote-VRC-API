@@ -26,8 +26,11 @@ chmod -R 777 app/storage
 sudo apt-get install beanstalkd
 sudo apt-get install supervisor
 
-sudo unlink /var/run/supervisor.sock
+sudo apt-get install memcached php5-memcached
+sudo service nginx restart
 
+sudo unlink /var/run/supervisor.sock
+supervisord -c /etc/supervisor.conf
 
 ### Install Commands
 
@@ -74,3 +77,6 @@ sudo service apache2 reload
 - https://www.digitalocean.com/community/articles/how-to-install-linux-nginx-mysql-php-lemp-stack-on-debian-7
 - https://www.digitalocean.com/community/articles/how-to-install-linux-apache-mysql-php-lamp-stack-on-debian
 - https://www.digitalocean.com/community/articles/how-to-create-a-new-user-and-grant-permissions-in-mysql
+- https://www.digitalocean.com/community/articles/how-to-install-and-manage-supervisor-on-ubuntu-and-debian-vps
+- http://glenntaylor.co.uk/blog/read/laravel-queues-with-beanstalkd
+- 

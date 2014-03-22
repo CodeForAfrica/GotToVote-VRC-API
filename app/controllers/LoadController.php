@@ -1,17 +1,22 @@
 <?php
 
-class Voter extends Eloquent {
+class LoadController extends BaseController {
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'VOTER_TABLE';
+	/*
+	|--------------------------------------------------------------------------
+	| Default API Controller
+	|--------------------------------------------------------------------------
+	|
+	| You may wish to use controllers instead of, or in addition to, Closure
+	| based routes. That's great! Here is an example controller method to
+	| get you started. To route to this controller, just add the route:
+	|
+	|	Route::post('/sms', 'SmsController@receiveSMS');
+	|
+	*/
 	
-
-	public function fetchBigQuery($reg_num)
-	{	
+	public function memcache() {
+		
 		// Include google-php-client files
 		require_once 'Google/Client.php';
 		require_once 'Google/Service/Bigquery.php';
@@ -37,13 +42,22 @@ class Voter extends Eloquent {
 		$query->setQuery('SELECT * FROM ['.
 			Config::get('app.google_client_api.bigquery.dataset').'.'.
 			Config::get('app.google_client_api.bigquery.voter_table').
-			'] WHERE registration_number ='.$reg_num);
+			']');
 		
 		// Push query and get response
 		$jobs = $bigqueryService->jobs;
 		$response = $jobs->query(Config::get('app.google_client_api.project_id'), $query);
-
-		return $response;
+		
+		foreach ($response->rows as $row) {
+			Cache::forever('vr_'.$row['f']['0']['v'], $row);
+			//echo print_r(Cache::get('vr_'.$row['f']['0']['v']));
+		}
+		
+		echo 'Cache complete';
+	}
+	
+	public function info() {
+		echo phpinfo();
 	}
 
 }
