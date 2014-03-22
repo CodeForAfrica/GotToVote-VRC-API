@@ -56,42 +56,41 @@ class SmsController extends BaseController {
 			));
 		}
 		
-		// Fetch Voter from Bigquery
-		$voter = new Voter;
-		$bigquery = $voter->fetchBigquery($voter_id);
 		
-		// No Voter Found
-		if ($bigquery->totalRows == 0) {
+		// Fetch Voter from Memcached
+		
+		if (Cache::has('vr_'.$voter_id))
+		{
+			// Voter found
+			
+			// Save user accessed
+			Queue::push('User@QueueSave', array(
+				'voter_id' => $voter_id,
+				'message_id' => $message_id,
+				'session_id' => $session_id,
+				'message_body' => $message_body,
+				'date_received' => $date_received,
+				'message_type' => $message_type
+			));
+			
 			return Response::json(array(
 				'message_id' => $message_id,
 				'session_id' => $session_id,
 				'message_type' => $message_type,
-				'message_body' => 'The voter number cannot be found. Please check and send again.'
+				'message_body' => Cache::get('vr_'.$voter_id)['f']['0']['v']
 			));
+		    
 		}
 		
-		// Voter found
-		
-		// Save user accessed
-		Queue::push('User@QueueSave', array(
-			'voter_id' => $voter_id,
-			'message_id' => $message_id,
-			'session_id' => $session_id,
-			'message_body' => $message_body,
-			'date_received' => $date_received,
-			'message_type' => $message_type
-		));
-		
-		
-		// Return JSON Response
+		// No Voter Found
 		return Response::json(array(
 			'message_id' => $message_id,
 			'session_id' => $session_id,
 			'message_type' => $message_type,
-			'message_body' => 'Success!'
+			'message_body' => 'The voter number cannot be found. Please check and send again.'
 		));
 		
-
+		
 	}
 
 }
