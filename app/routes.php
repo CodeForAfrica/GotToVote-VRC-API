@@ -13,6 +13,7 @@
 
 Route::get('/', 'SmsController@receiveSMS');
 Route::get('/sms', 'SmsController@receiveSMS');
+Route::get('/web', 'WebController@checkRegistered');
 
 Route::get('/load/csv', 'LoadController@csvToCache');
 Route::get('/load/csv/test', 'LoadController@testCsvToCache');
