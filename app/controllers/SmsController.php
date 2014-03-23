@@ -77,7 +77,7 @@ class SmsController extends BaseController {
 				'message_id' => $message_id,
 				'session_id' => $session_id,
 				'message_type' => $message_type,
-				'message_body' => Cache::get('vr_'.$voter_id)['f']['0']['v']
+				'message_body' => Cache::get('vr_'.$voter_id)[0]
 			));
 		    
 		}
