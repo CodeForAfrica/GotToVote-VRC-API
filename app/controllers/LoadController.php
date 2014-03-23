@@ -25,5 +25,22 @@ class LoadController extends BaseController {
 		}
 		echo "Cache complete!";
 	}
+	
+	public function testCsvToCache() {
+		$i = 0;
+		if (($handle = fopen(Config::get('app.load_csv.path'), "r")) !== FALSE) {
+			while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
+				if (Cache::has('vr_'.$data[0]))
+				{
+					// Exists in cache
+				} else {
+					$i++;
+				}
+			}
+			fclose($handle);
+		}
+		
+		echo $i.' missing.';
+	}
 
 }

@@ -14,6 +14,7 @@ sudo service nginx start
 sudo nano /etc/nginx/sites-available/default
 
 sudo apt-get install php5-fpm
+sudo service php5-fpm restart
 
 sudo apt-get install git
 git clone https://github.com/CodeForAfrica/GotToVote-VRC-API.git
@@ -27,12 +28,14 @@ sudo apt-get install beanstalkd
 sudo apt-get install supervisor
 
 sudo apt-get install memcached php5-memcached
+sudo service memcached restart
 sudo service nginx restart
 
 sudo unlink /var/run/supervisor.sock
 supervisord -c /etc/supervisor.conf
 
-### Install Commands
+
+### Install with Apache2
 
 sudo apt-get update
 sudo apt-get install git apache2 mysql-server
@@ -79,4 +82,5 @@ sudo service apache2 reload
 - https://www.digitalocean.com/community/articles/how-to-create-a-new-user-and-grant-permissions-in-mysql
 - https://www.digitalocean.com/community/articles/how-to-install-and-manage-supervisor-on-ubuntu-and-debian-vps
 - http://glenntaylor.co.uk/blog/read/laravel-queues-with-beanstalkd
-- 
+- https://rtcamp.com/tutorials/php/increase-script-execution-time/
+- http://www.pontikis.net/blog/install-memcached-php-debian
