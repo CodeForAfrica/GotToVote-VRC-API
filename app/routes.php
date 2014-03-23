@@ -13,5 +13,5 @@
 
 Route::get('/', 'SmsController@receiveSMS');
 Route::get('/sms', 'SmsController@receiveSMS');
-Route::get('/load', 'LoadController@memcache');
-Route::get('/info', 'LoadController@info');
+
+Route::get('/load/csv', 'LoadController@csvToCache');
