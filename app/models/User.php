@@ -23,13 +23,9 @@ class User extends Eloquent {
 		$user->access_count = $user->access_count + 1;
 		$user->save();
 		
-		// Save SMS
-		$sms = new Sms;
-		$sms->message_id = $data['message_id'];
-		$sms->session_id = $data['session_id'];
-		$sms->message_body = $data['message_body'];
-		$sms->date_received = $data['date_received'];
-		$sms->message_type = $data['message_type'];
+		// Update SMS
+		$sms = Sms::find($data['sms_id']);
+		$sms->success = true;
 		$sms->user_id = $user->id;
 		$sms->save();
 		
