@@ -11,7 +11,7 @@ class LoadController extends BaseController {
 	| based routes. That's great! Here is an example controller method to
 	| get you started. To route to this controller, just add the route:
 	|
-	|	Route::post('/sms', 'SmsController@receiveSMS');
+	|	Route::post('/load', 'LoadController@csvToCache');
 	|
 	*/
 	

@@ -4,19 +4,22 @@
 
 ### Install with Nginx
 
-sudo apt-get install mysql-server php5-mysql php5-mcrypt php-pear
+sudo apt-get install git mysql-server php5-mysql php5-mcrypt php-pear
 
 sudo mysql_install_db
 sudo mysql_secure_installation
 
 sudo apt-get install nginx
-sudo service nginx start
 sudo nano /etc/nginx/sites-available/default
+sudo service nginx start
+
 
 sudo apt-get install php5-fpm
 sudo service php5-fpm restart
 
-sudo apt-get install git
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+
 git clone https://github.com/CodeForAfrica/GotToVote-VRC-API.git
 cd GotToVote-VRC-API
 

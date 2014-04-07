@@ -39,8 +39,19 @@ class SmsController extends BaseController {
 		$session_id = uniqid();
 		$voter_id = trim($message_body);
 		
+		// Save Raw SMS
+		$sms = new Sms;
+		$sms->message_id = $message_id;
+		$sms->session_id = $session_id;
+		$sms->message_body = $message_body;
+		$sms->date_received = $date_received;
+		$sms->message_type = $message_type;
+		$sms->success = false;
+		$sms->user_id = 0;
+		$sms->save();
+		
 		// Validate Message Body
-		$validator = Validator::make(
+		$validator = Validator::make (
 		    array('voter_id' => $voter_id),
 		    // Rules
 		    array('voter_id' => 
@@ -66,18 +77,17 @@ class SmsController extends BaseController {
 			// Save user accessed
 			Queue::push('User@QueueSave', array(
 				'voter_id' => $voter_id,
-				'message_id' => $message_id,
-				'session_id' => $session_id,
-				'message_body' => $message_body,
-				'date_received' => $date_received,
-				'message_type' => $message_type
+				'sms_id'=> $sms->id,
 			));
+			
+			$name = substr(Cache::get('vr_'.$voter_id)[3], 0, 1).'. '.Cache::get('vr_'.$voter_id)[2];
+			$response_msg = $voter_id.' Confirmed. '.$name.' is registered to vote in the Malawi 2014 elections.';
 			
 			return Response::json(array(
 				'message_id' => $message_id,
 				'session_id' => $session_id,
 				'message_type' => $message_type,
-				'message_body' => Cache::get('vr_'.$voter_id)[0]
+				'message_body' => $response_msg
 			));
 		    
 		}

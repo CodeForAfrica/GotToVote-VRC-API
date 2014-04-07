@@ -21,6 +21,7 @@ class CreateSmsesTable extends Migration {
 			$table->string('message_body');
 			$table->string('date_received');
 			$table->string('message_type');
+			$table->boolean('success');
 			$table->integer('user_id')->default(0);
             $table->timestamps();
 		});
