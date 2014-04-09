@@ -24,20 +24,20 @@ class VotingCentersTableSeeder extends Seeder {
     {
         DB::table('voting_centers')->delete();
         $i = 0;
-        if (($handle = fopen('../centres.csv', "r")) !== FALSE) {
+        if (($handle = fopen('../voting_centers.csv', "r")) !== FALSE) {
         	while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
         		if ($i == 0) {
         			
         		} else {
         			Center::create(array(
-        				'center_code' => $data[7],
-        				'ward_code' => $data[6],
+        				'center_code' => $data[1],
+        				'ward_code' => $data[2],
         				'constituency_code' => $data[3],
-        				'county_code' => $data[1],
-        				'center_name' => $data[8],
-        				'ward_code' => $data[5],
-        				'constituency_name' => $data[4],
-        				'county_name' => $data[2],
+        				'county_code' => $data[4],
+        				'center_name' => $data[5],
+        				'ward_name' => $data[6],
+        				'constituency_name' => $data[7],
+        				'county_name' => $data[8],
         				'region' => $data[9]
         			));
         		}
