@@ -12,19 +12,10 @@ class CreateVotingCentresTable extends Migration {
 	 */
 	public function up()
 	{
+		Schema::dropIfExists('voting_centres');
 		Schema::create('voting_centres', function(Blueprint $table)
 		{
-			//
 			$table->increments('id');
-			$table->integer('centre_code');
-			$table->integer('ward_code');
-			$table->integer('constituency_code');
-			$table->integer('county_code');
-			$table->string('centre_name');
-			$table->string('ward_name');
-			$table->string('constituency_name');
-			$table->string('county_name');
-			$table->timestamps();
 		});
 	}
 
@@ -35,7 +26,7 @@ class CreateVotingCentresTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('voting_centres');
+		Schema::dropIfExists('voting_centres');
 	}
 
 }

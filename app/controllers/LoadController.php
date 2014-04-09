@@ -28,6 +28,7 @@ class LoadController extends BaseController {
 	
 	public function testCsvToCache() {
 		$i = 0;
+		$missing = "<br />";
 		if (($handle = fopen(Config::get('app.load_csv.path'), "r")) !== FALSE) {
 			while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
 				if (Cache::has('vr_'.$data[0]))
@@ -35,12 +36,14 @@ class LoadController extends BaseController {
 					// Exists in cache
 				} else {
 					$i++;
+					$missing = $missing.$data[0].'<br />';
 				}
 			}
 			fclose($handle);
 		}
 		
 		echo $i.' missing.';
+		echo $missing;
 	}
 
 }

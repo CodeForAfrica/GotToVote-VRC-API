@@ -80,8 +80,9 @@ class SmsController extends BaseController {
 				'sms_id'=> $sms->id,
 			));
 			
+			$center = DB::table('voting_centers')->where('center_code', Cache::get('vr_'.$voter_id)[1])->first();
 			$name = substr(Cache::get('vr_'.$voter_id)[3], 0, 1).'. '.Cache::get('vr_'.$voter_id)[2];
-			$response_msg = $voter_id.' Confirmed. '.$name.' is registered to vote in the Malawi 2014 elections.';
+			$response_msg = $voter_id.' Confirmed. '.$name.' is registered to vote at '.$center->center_name.'.';
 			
 			return Response::json(array(
 				'message_id' => $message_id,
