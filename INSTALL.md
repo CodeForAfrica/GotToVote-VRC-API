@@ -34,6 +34,8 @@ sudo apt-get install memcached php5-memcached
 sudo service memcached restart
 sudo service nginx restart
 
+
+
 sudo unlink /var/run/supervisor.sock
 supervisord -c /etc/supervisor.conf
 

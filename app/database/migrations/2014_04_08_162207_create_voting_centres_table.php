@@ -12,9 +12,10 @@ class CreateVotingCentresTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('voting_centres', function(Blueprint $table)
+		Schema::dropIfExists('voting_centres');
+		Schema::create('voting_centres', function(Blueprint $table)
 		{
-			//
+			$table->increments('id');
 		});
 	}
 
@@ -25,10 +26,7 @@ class CreateVotingCentresTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('voting_centres', function(Blueprint $table)
-		{
-			//
-		});
+		Schema::dropIfExists('voting_centres');
 	}
 
 }
