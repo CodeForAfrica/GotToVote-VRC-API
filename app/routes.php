@@ -16,4 +16,6 @@ Route::get('/sms', 'SmsController@receiveSMS');
 Route::get('/web', 'WebController@checkRegistered');
 
 Route::get('/load/csv', 'LoadController@csvToCache');
+Route::get('/load/db', 'LoadController@csvToDb');
+
 Route::get('/load/csv/test', 'LoadController@testCsvToCache');

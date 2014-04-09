@@ -17,13 +17,25 @@ class LoadController extends BaseController {
 	
 	public function csvToCache()
 	{
+		$row = 0;
 		if (($handle = fopen(Config::get('app.load_csv.path'), "r")) !== FALSE) {
 			while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
 				Cache::forever('vr_'.$data[0], $data);
+				$row ++;
 			}
 			fclose($handle);
 		}
-		echo "Cache complete!";
+		echo "Cache complete! - ".$row;
+		
+	}
+	
+	public function csvToDb() {
+		$csv = iconv(file_get_contents('http://storage.googleapis.com/mec/smstest.csv')); 
+		
+		//ofcourse you have to modify that with proper table and field names
+		$query = sprintf("LOAD DATA local INFILE '%s' INTO TABLE voters FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' ESCAPED BY '\"' LINES TERMINATED BY '\\n' IGNORE 1 LINES (`voter_id`, `center_code`, `surname`, `firstname`, `gender`, `dob`)", $csv );
+		
+		return DB::connection()->getpdo()->exec($query);
 	}
 	
 	public function testCsvToCache() {
