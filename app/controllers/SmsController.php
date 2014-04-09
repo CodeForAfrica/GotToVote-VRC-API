@@ -55,7 +55,7 @@ class SmsController extends BaseController {
 		    array('voter_id' => $voter_id),
 		    // Rules
 		    array('voter_id' => 
-		    	array('alpha_num','min:8|max:8')
+		    	array('alpha_num','min:9','max:9')
 		    )
 		);
 		if ($validator->fails()) {
@@ -82,7 +82,8 @@ class SmsController extends BaseController {
 			
 			$center = DB::table('voting_centers')->where('center_code', Cache::get('vr_'.$voter_id)[1])->first();
 			$name = substr(Cache::get('vr_'.$voter_id)[3], 0, 1).'. '.Cache::get('vr_'.$voter_id)[2];
-			$response_msg = $voter_id.' Confirmed. '.$name.' is registered to vote at '.$center->center_name.'.';
+			$voter_id_masked = 'XXXX'.substr($voter_id, -5);
+			$response_msg = $voter_id_masked.' Confirmed. '.$name.' is registered to vote at '.$center->center_name.'.';
 			
 			return Response::json(array(
 				'message_id' => $message_id,
