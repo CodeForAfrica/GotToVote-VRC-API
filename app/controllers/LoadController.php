@@ -18,13 +18,17 @@ class LoadController extends BaseController {
 	public function csvToCache()
 	{
 		$row = 0;
-		if (($handle = fopen(Config::get('app.load_csv.path'), "r")) !== FALSE) {
-			while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
-				Cache::forever('vr_'.$data[0], $data);
-				$row ++;
+		$csvs = Config::get('app.load_csv.path');
+		foreach ($csvs as $csv) {
+			if (($handle = fopen($csv, "r")) !== FALSE) {
+				while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
+					Cache::forever('vr_'.$data[0], $data);
+					$row ++;
+				}
+				fclose($handle);
 			}
-			fclose($handle);
 		}
+		
 		echo "Cache complete! - ".$row;
 		
 	}

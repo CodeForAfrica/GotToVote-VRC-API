@@ -203,7 +203,10 @@ return array(
 	*/
 	
 	'load_csv' => array(
-		'path' => 'path/to/csv',
+		'path' => array(
+			'path/to/csv1',
+			'path/to/csv2'
+		),
 	),
 	
 );
