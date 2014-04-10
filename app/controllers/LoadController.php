@@ -15,14 +15,17 @@ class LoadController extends BaseController {
 	|
 	*/
 	
+	// CSV row limit. Set to 0 for unlimited
+	protected $limit = 100;
+	
 	public function csvToCache()
 	{
-		$row = 0;
+		$row = 1;
 		$csvs = Config::get('app.load_csv.path');
 		foreach ($csvs as $csv) {
-			$row = 0;
-			if (($handle = fopen($csv, "r")) !== FALSE ) {
-				while (($data = fgetcsv($handle, 0, ",")) !== FALSE ) {
+			$row = 1;
+			if (($handle = fopen($csv, "r")) !== FALSE  ) {
+				while (($data = fgetcsv($handle, 0, ",")) !== FALSE && $row != $this->limit ) {
 					Cache::forever('vr_'.$data[0], $data);
 					$row ++;
 				}
@@ -45,13 +48,13 @@ class LoadController extends BaseController {
 	
 	public function testCsvToCache() {
 		$i = 0;
-		$row = 0;
+		$row = 1;
 		$missing = "<br />";
 		$csvs = Config::get('app.load_csv.path');
 		foreach ($csvs as $csv) {
-			$row = 0;
+			$row = 1;
 			if (($handle = fopen($csv, "r")) !== FALSE) {
-				while (($data = fgetcsv($handle, 0, ",")) !== FALSE ) {
+				while (($data = fgetcsv($handle, 0, ",")) !== FALSE && $row != $this->limit ) {
 					if (Cache::has('vr_'.$data[0]))
 					{
 						// Exists in cache
