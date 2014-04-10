@@ -20,6 +20,8 @@ class LoadController extends BaseController {
 	
 	public function csvToCache()
 	{
+		Cache::flush();
+		
 		$row = 1;
 		$csvs = Config::get('app.load_csv.path');
 		foreach ($csvs as $csv) {
