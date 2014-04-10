@@ -23,8 +23,10 @@ class LoadController extends BaseController {
 		Cache::flush();
 		
 		$row = 1;
+		$total = 0;
 		$csvs = Config::get('app.load_csv.path');
 		foreach ($csvs as $csv) {
+			
 			$row = 1;
 			if (($handle = fopen($csv, "r")) !== FALSE  ) {
 				while (($data = fgetcsv($handle, 0, ",")) !== FALSE && $row != $this->limit ) {
@@ -33,9 +35,9 @@ class LoadController extends BaseController {
 				}
 				fclose($handle);
 			}
+			$total = $total + $row;
 		}
-		
-		echo "Cache complete! - ".$row;
+		echo "Cache complete! - ".$total;
 		
 	}
 	
