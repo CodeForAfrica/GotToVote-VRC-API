@@ -20,8 +20,9 @@ class LoadController extends BaseController {
 		$row = 0;
 		$csvs = Config::get('app.load_csv.path');
 		foreach ($csvs as $csv) {
-			if (($handle = fopen($csv, "r")) !== FALSE) {
-				while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
+			$row = 0;
+			if (($handle = fopen($csv, "r")) !== FALSE ) {
+				while (($data = fgetcsv($handle, 0, ",")) !== FALSE ) {
 					Cache::forever('vr_'.$data[0], $data);
 					$row ++;
 				}
@@ -44,18 +45,24 @@ class LoadController extends BaseController {
 	
 	public function testCsvToCache() {
 		$i = 0;
+		$row = 0;
 		$missing = "<br />";
-		if (($handle = fopen(Config::get('app.load_csv.path'), "r")) !== FALSE) {
-			while (($data = fgetcsv($handle, 0, ",")) !== FALSE) {
-				if (Cache::has('vr_'.$data[0]))
-				{
-					// Exists in cache
-				} else {
-					$i++;
-					$missing = $missing.$data[0].'<br />';
+		$csvs = Config::get('app.load_csv.path');
+		foreach ($csvs as $csv) {
+			$row = 0;
+			if (($handle = fopen($csv, "r")) !== FALSE) {
+				while (($data = fgetcsv($handle, 0, ",")) !== FALSE ) {
+					if (Cache::has('vr_'.$data[0]))
+					{
+						// Exists in cache
+					} else {
+						$i++;
+						$missing = $missing.$data[0].'<br />';
+					}
+					$row ++;
 				}
+				fclose($handle);
 			}
-			fclose($handle);
 		}
 		
 		echo $i.' missing.';
