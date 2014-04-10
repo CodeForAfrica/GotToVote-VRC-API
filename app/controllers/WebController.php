@@ -57,9 +57,18 @@ class WebController extends BaseController {
 		if (Cache::has('vr_'.$reg_no))
 		{
 			// Voter found
+			$center = DB::table('voting_centers')->where('center_code', Cache::get('vr_'.$reg_no)[1])->first();
+			if ( $center == NULL ) {
+				$center = (object) array(
+					'center_name' => '0'
+				);
+			}
+			$name = substr(Cache::get('vr_'.$reg_no)[3], 0, 1).'. '.Cache::get('vr_'.$reg_no)[2];
+			$voter_id_masked = 'XXXX'.substr($reg_no, -5);
+			$response_msg = $voter_id_masked.' Confirmed. '.$name.' is registered to vote at '.$center->center_name.'.';
 			return Response::json(array(
 				'success' => 'true',
-				'message' => Cache::get('vr_'.$reg_no)[0]
+				'message' => $response_msg
 			));
 		    
 		}
