@@ -37,7 +37,7 @@ sudo service nginx restart
 
 
 sudo unlink /var/run/supervisor.sock
-supervisord -c /etc/supervisor.conf
+supervisord -c /etc/supervisor/supervisord.conf 
 
 
 ### Install with Apache2
