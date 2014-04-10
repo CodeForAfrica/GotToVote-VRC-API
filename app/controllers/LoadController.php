@@ -16,7 +16,7 @@ class LoadController extends BaseController {
 	*/
 	
 	// CSV row limit. Set to 0 for unlimited
-	protected $limit = 100;
+	protected $limit = 0;
 	
 	public function csvToCache()
 	{
