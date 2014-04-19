@@ -73,7 +73,8 @@ class SmsController extends BaseController {
 				'message_id' => $message_id,
 				'session_id' => $session_id,
 				'message_type' => $message_type,
-				'message_body' => $response_msg
+				'message_body' => $response_msg,
+				'success' => false
 			));
 		}
 		
@@ -110,7 +111,8 @@ class SmsController extends BaseController {
 				'message_id' => $message_id,
 				'session_id' => $session_id,
 				'message_type' => $message_type,
-				'message_body' => $response_msg
+				'message_body' => $response_msg,
+				'success' => true
 			));
 		    
 		}
@@ -127,7 +129,8 @@ class SmsController extends BaseController {
 			'message_id' => $message_id,
 			'session_id' => $session_id,
 			'message_type' => $message_type,
-			'message_body' => $response_msg
+			'message_body' => $response_msg,
+			'success' => false
 		));
 		
 		
