@@ -24,10 +24,20 @@ class User extends Eloquent {
 		$user->save();
 		
 		// Update SMS
-		$sms = Sms::find($data['sms_id']);
-		$sms->success = true;
-		$sms->user_id = $user->id;
-		$sms->save();
+		if ($data['access_type'] == 'sms') {
+			$sms = Sms::find($data['sms_id']);
+			$sms->success = true;
+			$sms->user_id = $user->id;
+			$sms->save();
+		}
+		
+		// Update Web
+		if ($data['access_type'] == 'web') {
+			$web = Web::find($data['web_id']);
+			$web->success = true;
+			$web->user_id = $user->id;
+			$web->save();
+		}
 		
 		$job->delete();
 		

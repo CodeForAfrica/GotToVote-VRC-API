@@ -63,10 +63,10 @@ class SmsController extends BaseController {
 		if ($validator->fails()) {
 			$response_msg = "The voter id is not valid. Please check and send again. #5VOTE";
 			if ($msg_lang == "chi") {
-				$response_msg = "Nambala yovotelayo yalakwika. Chonde tumizaninso ndi nambala yolondola #5VOTE";
+				$response_msg = "Nambala yovotelayo yalakwika. Chonde tumizaninso ndi nambala yolondola. #5VOTE";
 			}
 			if ($msg_lang == "tum") {
-				$response_msg = "Nambala iyo mwatuma yabudika/Mwabudiska nambala iyo mwatuma. Tumizganiso makora #5VOTE";
+				$response_msg = "Nambala iyo mwatuma yabudika/Mwabudiska nambala iyo mwatuma. Tumizganiso makora. #5VOTE";
 			}
 			
 			return Response::json(array(
@@ -88,25 +88,42 @@ class SmsController extends BaseController {
 			// Save user accessed
 			Queue::push('User@QueueSave', array(
 				'voter_id' => $voter_id,
-				'sms_id'=> $sms->id,
+				'sms_id' => $sms->id,
+				'access_type' => 'sms'
 			));
 			
+			// Get voter center
 			$center = DB::table('voting_centers')->where('center_code', Cache::get('vr_'.$voter_id)[1])->first();
 			if ( $center == NULL ) {
 				$center = (object) array(
-					'center_name' => '0'
+					'center_name' => '[No Name]',
+					'center_code' => Cache::get('vr_'.$voter_id)[1]
 				);
 			}
-			$name = substr(Cache::get('vr_'.$voter_id)[3], 0, 1).'. '.Cache::get('vr_'.$voter_id)[2];
+			$center_info = $center->center_code."-".$center->center_name;
+			
+			// Get name
+			$fname = Cache::get('vr_'.$voter_id)[3];
+			$sname = Cache::get('vr_'.$voter_id)[2];
+			if ($fname == '') {
+				$fname = 'BLANK';
+			}
+			if ($sname == '') {
+				$sname = 'BLANK';
+			}
+			$name = substr($fname, 0, 1).'. '.$sname;
+			
+			// Set message
 			$voter_id_masked = 'XXXX'.substr($voter_id, -5);
-			$response_msg = $voter_id_masked.' Confirmed. '.$name.' is registered to vote at '.$center->center_name.'.';
+			$response_msg = $voter_id_masked.' Confirmed. '.$name.' is registered to vote at '.$center_info.'. #5VOTE';
 			if ($msg_lang == "chi") {
-				$response_msg = $voter_id_masked." Ndiyolondola. ".$name." muli m’kaundula woponya voti ku ".$center->center_name." #5VOTE";
+				$response_msg = $voter_id_masked." Ndiyolondola. ".$name." muli m’kaundula woponya voti ku ".$center_info.". #5VOTE";
 			}
 			if ($msg_lang == "tum") {
-				$response_msg = $voter_id_masked." Nambala inu njeniyiyo. ".$name." muli mukaundula wakuponya voti ku ".$center->center_name." #5VOTE";
+				$response_msg = $voter_id_masked." Nambala inu njeniyiyo. ".$name." zina linu lilimo m’ndandanda wa mazina ya voti ku ".$center_info.". #5VOTE";
 			}
 			
+			// Send the message
 			return Response::json(array(
 				'message_id' => $message_id,
 				'session_id' => $session_id,
@@ -118,12 +135,12 @@ class SmsController extends BaseController {
 		}
 		
 		// No Voter Found
-		$response_msg = "The voter id cannot be found. Please check and send again.";
+		$response_msg = "The voter id cannot be found. Please check and send again. #5VOTE";
 		if ($msg_lang == "chi") {
-			$response_msg = "Nambala yovotela mwatumizayo siyikupezeka. Chonde tumizaninso ndi nambala yolondola #5VOTE";
+			$response_msg = "Nambala yovotela mwatumizayo siyikupezeka. Chonde tumizaninso ndi nambala yolondola. #5VOTE";
 		}
 		if ($msg_lang == "tum") {
-			$response_msg = "Nambala inu yakuvotera ikusangika yayi. Yezganiso kutumizga #5VOTE";
+			$response_msg = "Nambala inu yakuvotera ikusangika yayi. Yezganiso kutumizga. #5VOTE";
 		}
 		return Response::json(array(
 			'message_id' => $message_id,

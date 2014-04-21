@@ -30,15 +30,20 @@ class WebController extends BaseController {
 	    }
 		
 		// Inputs
-		$reg_no = Input::get('reg_no');
+		$voter_id = Input::get('reg_no');
+		$voter_id = trim($voter_id);
 		
-		// Unique session_id and voter_id
-		$session_id = uniqid();
-		$reg_no = trim($reg_no);
+		// Save Raw Web
+		$web = new Web;
+		$web->voter_id = $voter_id;
+		$web->ip_address = Request::getClientIp();
+		$web->success = false;
+		$web->user_id = 0;
+		$web->save();
 		
 		// Validate Message Body
 		$validator = Validator::make(
-		    array('reg_no' => $reg_no),
+		    array('reg_no' => $voter_id),
 		    // Rules
 		    array('reg_no' => 
 		    	array('alpha_num','min:8|max:8')
@@ -54,18 +59,41 @@ class WebController extends BaseController {
 		
 		// Fetch Voter from Memcached
 		
-		if (Cache::has('vr_'.$reg_no))
+		if (Cache::has('vr_'.$voter_id))
 		{
 			// Voter found
-			$center = DB::table('voting_centers')->where('center_code', Cache::get('vr_'.$reg_no)[1])->first();
+			
+			// Save user accessed
+			Queue::push('User@QueueSave', array(
+				'voter_id' => $voter_id,
+				'web_id' => $web->id,
+				'access_type' => 'web'
+			));
+			
+			// Get voter center
+			$center = DB::table('voting_centers')->where('center_code', Cache::get('vr_'.$voter_id)[1])->first();
 			if ( $center == NULL ) {
 				$center = (object) array(
-					'center_name' => '0'
+					'center_name' => '[No Name]',
+					'center_code' => Cache::get('vr_'.$voter_id)[1]
 				);
 			}
-			$name = substr(Cache::get('vr_'.$reg_no)[3], 0, 1).'. '.Cache::get('vr_'.$reg_no)[2];
-			$voter_id_masked = 'XXXX'.substr($reg_no, -5);
-			$response_msg = $voter_id_masked.' Confirmed. '.$name.' is registered to vote at '.$center->center_name.'.';
+			$center_info = $center->center_code."-".$center->center_name;
+			
+			// Get name
+			$fname = Cache::get('vr_'.$voter_id)[3];
+			$sname = Cache::get('vr_'.$voter_id)[2];
+			if ($fname == '') {
+				$fname = 'BLANK';
+			}
+			if ($sname == '') {
+				$sname = 'BLANK';
+			}
+			$name = substr($fname, 0, 1).'. '.$sname;
+			
+			// Send response message
+			$voter_id_masked = 'XXXX'.substr($voter_id, -5);
+			$response_msg = $voter_id_masked.' Confirmed. '.$name.' is registered to vote at '.$center_info.'.';
 			return Response::json(array(
 				'success' => 'true',
 				'message' => $response_msg
