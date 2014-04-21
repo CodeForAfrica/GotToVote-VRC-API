@@ -16,7 +16,7 @@ class LoadController extends BaseController {
 	*/
 	
 	// CSV row limit. Set to 0 for unlimited
-	protected $limit = 1000;
+	// protected $limit = 1000;
 	
 	public function csvToCache()
 	{
@@ -29,7 +29,7 @@ class LoadController extends BaseController {
 			
 			$row = 1;
 			if (($handle = fopen($csv, "r")) !== FALSE  ) {
-				while (($data = fgetcsv($handle, 0, ",")) !== FALSE && $row != $this->limit ) {
+				while (($data = fgetcsv($handle, 0, ",")) !== FALSE && $row != Config::get('app.load_csv.limit') ) {
 					$key = trim(explode(" ", $data[0])[0]);
 					Cache::forever('vr_'.$key, $data);
 					$row ++;
@@ -59,7 +59,7 @@ class LoadController extends BaseController {
 		foreach ($csvs as $csv) {
 			$row = 1;
 			if (($handle = fopen($csv, "r")) !== FALSE) {
-				while (($data = fgetcsv($handle, 0, ",")) !== FALSE && $row != $this->limit ) {
+				while (($data = fgetcsv($handle, 0, ",")) !== FALSE && $row != Config::get('app.load_csv.limit') ) {
 					$key = trim(explode(" ", $data[0])[0]);
 					if (Cache::has('vr_'.$key))
 					{

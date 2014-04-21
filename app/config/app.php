@@ -207,6 +207,7 @@ return array(
 			'path/to/csv1',
 			'path/to/csv2'
 		),
+		'limit' => 1000,
 	),
 	
 );
