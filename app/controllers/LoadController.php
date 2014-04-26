@@ -20,6 +20,7 @@ class LoadController extends BaseController {
 	
 	public function csvToCache()
 	{
+		set_time_limit(0);
 		Cache::flush();
 		
 		$row = 1;
