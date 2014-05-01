@@ -43,16 +43,10 @@ class LoadController extends BaseController {
 		
 	}
 	
-	public function csvToDb() {
-		$csv = iconv(file_get_contents('http://storage.googleapis.com/mec/smstest.csv')); 
-		
-		//ofcourse you have to modify that with proper table and field names
-		$query = sprintf("LOAD DATA local INFILE '%s' INTO TABLE voters FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' ESCAPED BY '\"' LINES TERMINATED BY '\\n' IGNORE 1 LINES (`voter_id`, `center_code`, `surname`, `firstname`, `gender`, `dob`)", $csv );
-		
-		return DB::connection()->getpdo()->exec($query);
-	}
-	
 	public function testCsvToCache() {
+		
+		set_time_limit(0);
+		
 		$i = 0;
 		$row = 1;
 		$missing = "<br />";
